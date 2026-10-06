@@ -1,6 +1,6 @@
 # Skillo QA Automation Academy
 
-A learning repository for the QA Automation Academy. It contains lecture materials, examples, practice tasks, and homework guidelines to help you build a solid foundation in JavaScript and testing workflows.
+A learning repository for the QA Automation Academy. It contains lecture materials, examples, practice tasks, and homework guidelines to help you build a solid foundation in JavaScript and testing workflows!
 
 ## Quick start
 

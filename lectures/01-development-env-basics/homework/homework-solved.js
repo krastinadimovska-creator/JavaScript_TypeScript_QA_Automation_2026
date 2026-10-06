@@ -1,15 +1,11 @@
-// TODO: Solve the homework exercises described in:
-// lectures/01-development-env-basics/homework/homework-assignment.md
-
-// 1. Create variables for the following data types and assign them appropriate values:
-const userName = "krastina.dimovska@test.be";
-const userId = 1010102;
-const isLoggedIn = false;
-const baseUrl = "https://demo.test.be";
+// Run from the repository root: npm run test:lecture-01
+const userName = "testuser@example.test";
+const userId = 12345;
+const isLoggedIn = true;
+const baseUrl = "https://demo.example.test";
 const expectedStatus = 200;
-const actualStatus = 403;
+const actualStatus = 200;
 
-// 2. Log each value and its type
 console.log("Username:", userName, "| type:", typeof userName);
 console.log("User ID:", userId, "| type:", typeof userId);
 console.log("Logged in:", isLoggedIn, "| type:", typeof isLoggedIn);
@@ -22,14 +18,13 @@ console.log(
 );
 console.log("Actual status:", actualStatus, "| type:", typeof actualStatus);
 
-// 3. Create a function that takes a name as an argument and returns a message in the format: "Good job, [name]!"
 function createUserMessage(name) {
-  return `Good job, ${name}!`;
+  return `Hello, ${name}! Ready to test?`;
 }
-console.log(createUserMessage("Krastina Dimovska"));
-console.log(createUserMessage("QA Automation Tester"));
 
-// 4. Compare expected and actual status and return PASS/FAIL result
+console.log(createUserMessage("Sarah"));
+console.log(createUserMessage("Alex"));
+
 function validateStatus(expected, actual) {
   const matches = expected === actual;
 
@@ -40,39 +35,49 @@ function validateStatus(expected, actual) {
   return matches;
 }
 
-const check1 = validateStatus(200, 200);
-const check2 = validateStatus(expectedStatus, actualStatus);
+const matchingResult = validateStatus(200, 200);
+const nonMatchingResult = validateStatus(200, 404);
 
-// 5. Write printTestSummary(...) to report the number of checks, passes, failures, and an overall result. Use the results from your status checks.
-function printTestSummary(results = []) {
-  const totalChecks = results.length;
-  const passes = results.filter(Boolean).length;
-  const failures = totalChecks - passes;
-  const overallResult = passes === totalChecks ? "PASS" : "FAIL";
+function printTestSummary(...results) {
+  const total = results.length;
+  let passed = 0;
+  let failed = 0;
 
-  const summary = {
-    totalChecks,
-    passes,
-    failures,
-    overallResult,
-  };
+  for (const result of results) {
+    if (result) {
+      passed = passed + 1;
+    } else {
+      failed = failed + 1;
+    }
+  }
 
-  console.log("Test Summary:");
-  console.log(`Total Checks: ${summary.totalChecks}`);
-  console.log(`Passes: ${summary.passes}`);
-  console.log(`Failures: ${summary.failures}`);
-  console.log(`Overall Result: ${summary.overallResult}`);
+  const overallResult = failed === 0 ? "PASS" : "FAIL";
 
-  return summary;
+  console.log(`Total checks: ${total}`);
+  console.log(`Passed: ${passed}`);
+  console.log(`Failed: ${failed}`);
+  console.log(`Overall result: ${overallResult}`);
 }
-printTestSummary([check1, check2]);
 
-// 6. Ran the file with npm run test:lecture-01, formatted it with Prettier and checked it with ESLint — no problems found.
-// 7. Copilot suggested a cleaner version of printTestSummary, which I accepted:
-// * Takes an array of results instead of two fixed parameters, so it works for any number of checks.
-// * Counts checks with .length and passes with .filter(Boolean) instead of hardcoded values.
-// * Returns a summary object, so the results can be reused.
-// I did not accept the extra check1/check2 constants it added, because they already exist
-// from task 4 and would cause an "already declared" error.
-// Verification: I went through the new parts (arrays, .length, .filter, objects) line by line,
-// ran the file and confirmed the output is the same as before (2 checks, 1 pass, 1 fail, FAIL).
+printTestSummary(matchingResult, nonMatchingResult);
+
+// Optional challenge
+function loginTest(expectedLoginState, actualLoginState) {
+  const matches = expectedLoginState === actualLoginState;
+
+  console.log(`Expected login state: ${expectedLoginState}`);
+  console.log(`Actual login state: ${actualLoginState}`);
+  console.log("Result:", matches ? "PASS" : "FAIL");
+
+  return matches;
+}
+
+const passingLoginResult = loginTest(true, true);
+const failingLoginResult = loginTest(true, false);
+
+printTestSummary(
+  matchingResult,
+  nonMatchingResult,
+  passingLoginResult,
+  failingLoginResult,
+);
