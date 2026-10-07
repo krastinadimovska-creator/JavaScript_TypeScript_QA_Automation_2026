@@ -79,3 +79,21 @@ for (let i = 0; i < results.length; i++) {
     console.log(`Failure found at index ${i}`);
   }
 }
+
+
+/**
+ * Clock implementation using nested loops.
+ * Outer loop iterates over minutes (0-59).
+ * Inner loop iterates over seconds (0-59) for each minute.
+ * Logs the current time in the format "Time: Xm Ys".
+ */
+function runClock() {
+  for (let minute = 0; minute < 60; minute++) {
+    for (let second = 0; second < 60; second++) {
+      console.log(`Time: ${minute}m ${second}s`); // Log each second of the current minute
+    }
+  }
+}
+
+// Call the clock function
+runClock();
